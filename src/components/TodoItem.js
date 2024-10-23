@@ -38,7 +38,6 @@ function TodoItem({ todo, index }) {
             onKeyDown={e => {
               if (e.key.toLowerCase() === 'enter') {
                 handleUpdateTodo(todo, e.target.value);
-                setIsEditing(false);
               }
             }}
           />
@@ -53,8 +52,8 @@ function TodoItem({ todo, index }) {
             className="btn-edit"
             onClick={e => {
               e.stopPropagation();
-              setIsEditing(true);
               handleSelectTodo(todo);
+              setIsEditing(true);
             }}
           >
             ✏️

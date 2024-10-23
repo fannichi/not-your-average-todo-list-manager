@@ -12,13 +12,13 @@ function App() {
         containerStyle={{ margin: '8px' }}
         toastOptions={{
           success: {
-            duration: 3000,
+            duration: 1700,
             style: {
               backgroundColor: '#048e1bcc',
             },
           },
           error: {
-            duration: 5500,
+            duration: 1700,
             style: {
               backgroundColor: '#fb2727bd',
             },

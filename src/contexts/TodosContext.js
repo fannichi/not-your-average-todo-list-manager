@@ -66,14 +66,18 @@ function TodosProvider({ children }) {
       };
       const isExist = todos.some(todo => todo.title === newTodo.title);
 
-      !addTodoInputEl.current.value
-        ? alert(`Type in a todo to add to the list first!`)
-        : !isExist
-        ? setTodos([...todos, newTodo])
-        : alert(`"${newTodo.title}" already exists`);
-      addTodoInputEl.current.value = '';
-      setDifficulty('');
-      toast.success("Todo Added! let's get it done! 🚀");
+      if (!addTodoInputEl.current.value) {
+        toast.error(`Type in a todo to add to the list first!`);
+      } else if (!isExist) {
+        setTodos([...todos, newTodo]);
+        addTodoInputEl.current.value = '';
+        setDifficulty('');
+        toast.success("Todo Added! let's get it done! 🚀");
+      } else {
+        toast.error(`"${newTodo.title}" already exists`);
+        addTodoInputEl.current.value = '';
+        setDifficulty('');
+      }
     },
     [todos, setTodos, difficulty]
   );
@@ -129,7 +133,7 @@ function TodosProvider({ children }) {
       );
       setSelectedTodo({ ...item, completed: !item.completed });
       addTodoInputEl.current.value = '';
-      toast.success("Todo's completed! keep going 💪");
+      !item.completed && toast.success("Todo's completed! keep going 💪");
     },
     [todos, setTodos]
   );

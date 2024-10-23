@@ -9,6 +9,21 @@ function TodoItem({ todo, index }) {
     isEditing,
     handleUpdateTodo,
   } = useTodos();
+
+  // Edit button click handler with stopPropagation
+  const handleEditClick = (e, todo) => {
+    e.stopPropagation(); // Prevent event bubbling to the li
+    handleSelectTodo(todo); // Ensure the todo is selected first
+    setIsEditing(true); // Now set it to editing mode
+  };
+
+  // List item click handler
+  const handleLiClick = todo => {
+    if (!isEditing) {
+      handleSelectTodo(todo);
+    }
+  };
+
   return (
     <div className="items-container">
       <span className={`priority ${todo.priority}`}>
@@ -18,19 +33,14 @@ function TodoItem({ todo, index }) {
         className={`todo-item ${
           selectedTodo?.id === todo.id ? 'selected' : ''
         }`}
-        onClick={() => {
-          handleSelectTodo(todo);
-          setIsEditing(false);
-        }}
+        onClick={() => handleLiClick(todo)}
       >
         {isEditing && selectedTodo?.id === todo.id ? (
           <input
             type="text"
             defaultValue={todo.title}
             placeholder="updated todo..."
-            onClick={e => {
-              e.stopPropagation();
-            }}
+            onClick={e => e.stopPropagation()} // Prevent input from firing li click
             onBlur={e => {
               setIsEditing(false);
               handleUpdateTodo(todo, e.target.value);
@@ -48,20 +58,13 @@ function TodoItem({ todo, index }) {
           </span>
         )}
         <div>
-          <button
-            className="btn-edit"
-            onClick={e => {
-              e.stopPropagation();
-              handleSelectTodo(todo);
-              setIsEditing(true);
-            }}
-          >
+          <button className="btn-edit" onClick={e => handleEditClick(e, todo)}>
             ✏️
           </button>
           <button
             className="btn-delete"
             onClick={e => {
-              e.stopPropagation();
+              e.stopPropagation(); // Prevent delete button from firing li click
               handleDelete(todo.id);
             }}
           >

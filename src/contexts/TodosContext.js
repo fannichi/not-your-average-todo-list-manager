@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import { useLocalStorageForTodos } from '../hooks/useLocalStorage';
+import toast from 'react-hot-toast';
 
 const initialTodosState = [
   {
@@ -72,6 +73,7 @@ function TodosProvider({ children }) {
         : alert(`"${newTodo.title}" already exists`);
       addTodoInputEl.current.value = '';
       setDifficulty('');
+      toast.success("Todo Added! let's get it done! 🚀");
     },
     [todos, setTodos, difficulty]
   );
@@ -79,6 +81,7 @@ function TodosProvider({ children }) {
   const handleClearTodos = useCallback(
     function () {
       setTodos([]);
+      toast.success("Todos Cleared! you're all caught up! 🧹");
     },
     [setTodos]
   );
@@ -111,6 +114,7 @@ function TodosProvider({ children }) {
       setTodos(
         todos?.map(curTodo => (curTodo.id === todo.id ? updatedTodo : curTodo))
       );
+      toast.success('Todo Updated! 🥳');
       setSelectedTodo(null);
     },
     [todos, setTodos]
@@ -125,6 +129,7 @@ function TodosProvider({ children }) {
       );
       setSelectedTodo({ ...item, completed: !item.completed });
       addTodoInputEl.current.value = '';
+      toast.success("Todo's completed! keep going 💪");
     },
     [todos, setTodos]
   );
@@ -187,6 +192,7 @@ function TodosProvider({ children }) {
       setIsFakeDark,
       isEditing,
       setIsEditing,
+      setSelectedTodo,
     };
   }, [
     selectedTodo,

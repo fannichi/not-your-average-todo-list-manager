@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useTodos } from '../contexts/TodosContext';
 
 function ButtonsGroup() {
@@ -11,6 +12,7 @@ function ButtonsGroup() {
     setSortType,
     searchedTodos,
     addTodoInputEl,
+    setSelectedTodo,
   } = useTodos();
 
   const countTodos = searchedTodos.length;
@@ -56,7 +58,7 @@ function ButtonsGroup() {
           className="btn-control"
           onClick={() => {
             !selectedTodo
-              ? alert(`Select a todo from the list first!`)
+              ? toast.error(`Select a todo from the list first!`)
               : handleUpdateTodo(selectedTodo, addTodoInputEl.current.value);
           }}
         >
@@ -67,7 +69,8 @@ function ButtonsGroup() {
           onClick={() => {
             selectedTodo
               ? toggleComplete(selectedTodo)
-              : alert('Select a todo to complete first!');
+              : toast.error('Select a todo to complete first!');
+            setSelectedTodo(null);
           }}
         >
           {selectedTodo?.completed === true ? '⬅️ incomplete' : '✔️ complete'}

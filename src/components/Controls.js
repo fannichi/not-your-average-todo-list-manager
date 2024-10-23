@@ -9,7 +9,6 @@ function Controls() {
     isFakeDark,
     setIsFakeDark,
   } = useTodos();
-  console.log(addTodoInputEl);
   return (
     <div className="controls">
       <div className="newtodo-wrapper">

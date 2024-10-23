@@ -45,6 +45,8 @@ function ButtonsGroup() {
                 <option value="htl">Priority high to low</option>
                 <option value="nto">new to old</option>
                 <option value="otn">old to new</option>
+                <option value="completed">completed first</option>
+                <option value="incomplete">incomplete first</option>
               </select>
             </div>
           </>

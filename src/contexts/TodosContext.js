@@ -151,6 +151,8 @@ function TodosProvider({ children }) {
       : todos;
 
   // Sorting
+
+  // Sorting by priority
   const priorityMap = { low: 1, medium: 2, high: 3 };
 
   if (sortType === 'lth')
@@ -165,8 +167,24 @@ function TodosProvider({ children }) {
         priorityMap[b.priority.toLowerCase()] -
         priorityMap[a.priority.toLowerCase()]
     );
+
+  // Sorting by added date
   if (sortType === 'otn') searchedTodos.sort((a, b) => a.added - b.added);
   if (sortType === 'nto') searchedTodos.sort((a, b) => b.added - a.added);
+
+  // Sorting by completed
+
+  if (sortType === 'completed') {
+    searchedTodos.sort((a, b) =>
+      a.completed === b.completed ? 0 : a.completed ? -1 : 1
+    );
+  }
+
+  if (sortType === 'incomplete') {
+    searchedTodos.sort((a, b) =>
+      a.completed === b.completed ? 0 : a.completed ? 1 : -1
+    );
+  }
 
   // Fake dark mode
   useEffect(() => {

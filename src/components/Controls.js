@@ -12,7 +12,7 @@ function Controls() {
   return (
     <div className="controls">
       <div className="newtodo-wrapper">
-        <label>Add or select a todo to update:</label>
+        <label>Add a todo or click ✏️ to update:</label>
         <input ref={addTodoInputEl} type="text" name="todo" />
       </div>
       <PrioritySelect />

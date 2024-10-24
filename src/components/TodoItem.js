@@ -1,6 +1,6 @@
 import { useTodos } from '../contexts/TodosContext';
 
-function TodoItem({ todo, index }) {
+function TodoItem({ todo, index, handleDrop }) {
   const {
     handleSelectTodo,
     handleDelete,
@@ -24,8 +24,30 @@ function TodoItem({ todo, index }) {
     }
   };
 
+  // Handle drag start
+  const handleDragStart = e => {
+    e.dataTransfer.setData('draggedId', todo.id); // Set the dragged item ID
+  };
+
+  // Handle drop
+  const handleDragOver = e => {
+    e.preventDefault(); // Allow dropping
+  };
+
+  const handleDropOnItem = e => {
+    e.preventDefault();
+    const draggedId = e.dataTransfer.getData('draggedId'); // Get the dragged item ID
+    handleDrop(draggedId, todo.id); // Call the handleDrop function from TodosList to reorder
+  };
+
   return (
-    <div className="items-container">
+    <div
+      className="items-container"
+      draggable="true"
+      onDragStart={handleDragStart} // Start dragging
+      onDragOver={handleDragOver} // Allow dragover event
+      onDrop={handleDropOnItem} // Handle the drop
+    >
       <span className={`priority ${todo.priority}`}>
         {todo.priority[0].toUpperCase()}
       </span>

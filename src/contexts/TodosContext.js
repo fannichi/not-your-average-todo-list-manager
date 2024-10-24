@@ -215,6 +215,7 @@ function TodosProvider({ children }) {
       isEditing,
       setIsEditing,
       setSelectedTodo,
+      setTodos,
     };
   }, [
     selectedTodo,
@@ -227,6 +228,7 @@ function TodosProvider({ children }) {
     addTodoInputEl,
     searchedTodos,
     searchTerm,
+    setTodos,
     sortType,
     difficulty,
     isFakeDark,
